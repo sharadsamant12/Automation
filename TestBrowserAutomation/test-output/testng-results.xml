@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2020-05-21T14:15:47 IST" name="Suite" finished-at="2020-05-21T14:17:53 IST" duration-ms="125308">
+  <suite started-at="2020-05-21T18:33:55 IST" name="Suite" finished-at="2020-05-21T18:36:22 IST" duration-ms="147150">
     <groups>
     </groups>
-    <test started-at="2020-05-21T14:15:47 IST" name="FirefoxTestCases" finished-at="2020-05-21T14:17:53 IST" duration-ms="125308">
+    <test started-at="2020-05-21T18:33:55 IST" name="FirefoxTestCases" finished-at="2020-05-21T18:35:13 IST" duration-ms="78501">
       <class name="crossBrowsers.VerifyTitle">
-        <test-method signature="verifypageTitle(java.lang.String)[pri:0, instance:crossBrowsers.VerifyTitle@3a079870]" started-at="2020-05-21T14:15:48 IST" name="verifypageTitle" finished-at="2020-05-21T14:17:53 IST" duration-ms="125113" status="PASS">
+        <test-method signature="verifypageTitle(java.lang.String)[pri:0, instance:crossBrowsers.VerifyTitle@3a079870]" started-at="2020-05-21T18:33:55 IST" name="verifypageTitle" finished-at="2020-05-21T18:35:13 IST" duration-ms="78348" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -20,5 +20,20 @@
         </test-method> <!-- verifypageTitle -->
       </class> <!-- crossBrowsers.VerifyTitle -->
     </test> <!-- FirefoxTestCases -->
+    <test started-at="2020-05-21T18:35:13 IST" name="ChromeTestCases" finished-at="2020-05-21T18:36:22 IST" duration-ms="68462">
+      <class name="crossBrowsers.VerifyTitle">
+        <test-method signature="verifypageTitle(java.lang.String)[pri:0, instance:crossBrowsers.VerifyTitle@78dd667e]" started-at="2020-05-21T18:35:13 IST" name="verifypageTitle" finished-at="2020-05-21T18:36:22 IST" duration-ms="68450" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifypageTitle -->
+      </class> <!-- crossBrowsers.VerifyTitle -->
+    </test> <!-- ChromeTestCases -->
   </suite> <!-- Suite -->
 </testng-results>

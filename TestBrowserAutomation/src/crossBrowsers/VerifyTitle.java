@@ -39,22 +39,19 @@ public class VerifyTitle {
 		}
 		
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(900, TimeUnit.SECONDS);
-		Thread.sleep(50000);
+		driver.manage().timeouts().implicitlyWait(50000, TimeUnit.SECONDS);
+		//Thread.sleep(5000);
 		driver.get("http://webapp-stage.dayre.me/auth/login");
-		//driver.wait(50000);
 		Thread.sleep(50000);
 		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
 		
 		// Font size
 		String fsize = driver.findElement(By.xpath("//h1[contains(text(),'Welcome home')]")).getCssValue("font-size");
-		//String fsize = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/h1[1]")).getText();
 		System.out.println("Font size: " +fsize);
 		
 		
 		
 		// Font Colour
-		//String color = driver.findElement(By.xpath("Welcome home")).getCssValue("color");
 		String color = driver.findElement(By.xpath("//h1[contains(text(),'Welcome home')]")).getCssValue("color");
 		System.out.println("Color: " +color);
 						
@@ -63,11 +60,32 @@ public class VerifyTitle {
 		
 		String bColor = driver.findElement(By.xpath("//h1[contains(text(),'Welcome home')]")).getCssValue("Background-Color");
 		System.out.println("Background Color: " +bColor);
-						//h1[contains(text(),'Welcome home')]
+		
+		
+		
+		//Login and Password
+		driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/form[1]/div[1]/input[1]")).sendKeys("sharad");
+		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+		driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/form[1]/div[2]/input[1]")).sendKeys("43214321");
+		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+		
+		driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/form[1]/div[4]/button[1]")).click();
+		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+		
+				
+				
+		//Add comment
+		driver.findElement(By.xpath("//textarea[@placeholder='Add a comment']")).sendKeys("Hi this is may firstComment Added");
+		driver.findElement(By.xpath("//div[@class='input-group active']//span[contains(text(),'Send')]")).click();
+		
+		
+		//select the first post
+		//driver.findElement(By.xpath("/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/a[1]/img[1]")).click();
+
 		
 		
 		System.out.println(driver.getTitle());
-		driver.quit();
+		//driver.quit();
 	}
 
 }
