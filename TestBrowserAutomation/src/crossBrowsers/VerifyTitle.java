@@ -1,8 +1,10 @@
 package crossBrowsers;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+//import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -73,10 +75,11 @@ public class VerifyTitle {
 		driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/form[1]/div[4]/button[1]")).click();
 		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
 		
-				
-				
-		//Add comment
 		
+		
+				
+		//Add comment on Feed page
+				
 		WebElement Textarea =driver.findElement(By.tagName("textarea"));
 		
 		// Use Helper.java for HighLight Element
@@ -89,13 +92,16 @@ public class VerifyTitle {
 		driver.findElement(By.xpath("//div[@class='input-group active']//span[contains(text(),'Send')]")).click();
 		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
 		
+		//Refresh the page
+				driver.findElement(By.xpath("//body/div[@id='__next']/header/div/nav/div/img[1]")).click();
+				driver.manage().timeouts().implicitlyWait(3500, TimeUnit.SECONDS);	
 		
 		//Compare the added content
 		
 		if(driver.getPageSource().contains("Hi this is may first Comment Added"))
 		{
 			System.out.println("Text Presnet");
-			//Helper.highLightElement(driver, Textarea);
+			Helper.highLightElement(driver, Textarea);
 			
 		}
 		
@@ -106,30 +112,78 @@ public class VerifyTitle {
 		
 		
 		
-		//String achualData = driver.findElement(By.xpath("//body//div[@id='__next']//div//div//div//div//div//div//div//div//div//div//div[1]//div[3]//div[1]//div[1]//div[1]//div[1]//div[2]//p[1]//span[2]")).getText();
-		String achualData = driver.findElement(By.cssSelector("section.page-section.clearfix div.block-section.welcome-section.clearfix div.container div.row div.col-sm-12.col-md-6:nth-child(2) div.mid_content div.mid_container div.post-content div.infinite-scroll-component__outerdiv div.infinite-scroll-component div.comment-list:nth-child(3) div.profile-comment-list div.commentlist-wrapper:nth-child(1) div.comment-lt div.commentlist-container div.post-text p:nth-child(1) > span.text-dec")).getText();
-		Helper.highLightElement(driver, achualData);
-		System.out.println("Data: " + achualData);
-		Helper.highLightElement(driver, achualData);
-		driver.manage().timeouts().implicitlyWait(2500, TimeUnit.SECONDS);
-	    //Boolean myachualData = driver.findElement(By.xpath("//body//div[@id='__next']//div//div//div//div//div//div//div//div//div//div//div[1]//div[3]//div[1]//div[1]//div[1]//div[1]//div[2]//p[1]//span[2]")).isDisplayed();                                                 
 		
+		//String achualData = driver.findElement(By.xpath("//body//div[@id='__next']//div//div//div//div//div//div//div//div//div//div//div[1]//div[3]//div[1]//div[1]//div[1]//div[1]//div[2]//p[1]//span[2]")).getText();
+		
+		/*
+		 * String achualData = driver.findElement(By.
+		 * cssSelector("section.page-section.clearfix div.block-section.welcome-section.clearfix div.container div.row div.col-sm-12.col-md-6:nth-child(2) div.mid_content div.mid_container div.post-content div.infinite-scroll-component__outerdiv div.infinite-scroll-component div.comment-list:nth-child(3) div.profile-comment-list div.commentlist-wrapper:nth-child(1) div.comment-lt div.commentlist-container div.post-text p:nth-child(1) > span.text-dec"
+		 * )).getText(); Helper.highLightElement(driver, achualData);
+		 * System.out.println("Data: " + achualData); Helper.highLightElement(driver,
+		 * achualData); driver.manage().timeouts().implicitlyWait(2500,
+		 * TimeUnit.SECONDS);
+		 */
+	   
 		
 
 		
-		System.out.println("Result for added data : " + achualData);
-		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+		//System.out.println("Result for added data : " + achualData);
+		//driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
 		
-		String expectedData = " Hi this is may first Comment Added";
-		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+		/*
+		 * String expectedData = " Hi this is may first Comment Added";
+		 * driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+		 * 
+		 * if(expectedData.equalsIgnoreCase(achualData)){
+		 * System.out.println("Result is Matched"); } else {
+		 * System.out.println("Rsult is Not matched"); }
+		 */
 		
-		if(expectedData.equalsIgnoreCase(achualData)){
-			System.out.println("Result is Matched");
-			}
-			else {
-			System.out.println("Rsult is Not matched");
-		}
+		// Window handle
+		String parent = driver.getWindowHandle();
 		
+		//select the first post
+				driver.findElement(By.xpath("//body//div[@id='__next']//div//div//div//div//div//div//div//div//div//div//div[1]//div[1]//div[1]//div[1]//div[1]//div[1]//a[1]//div[1]//h5[1]")).click();
+				driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);  
+				
+				Set<String> allWindows=driver.getWindowHandles();
+				int count=allWindows.size();
+				System.out.println("Total No. of Windows" + count);
+				for(String child:allWindows)
+					{
+						if(!parent.equalsIgnoreCase(child))
+						{
+							driver.switchTo().window(child);
+							driver.findElement(By.xpath("//body/div[@id='__next']/section/div/div/div/div/div/div/div/div/section/div/div[2]/div[1]/div[1]")).getText().compareTo("Hi this is may first Comment Added");
+							Thread.sleep(3000);
+							driver.close();
+						}
+					}
+				
+				driver.switchTo().window(parent);
+				                            		 
+				//driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL + "t");
+				//driver.manage().timeouts().implicitlyWait(1500, TimeUnit.SECONDS);
+				
+				//driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL + "\t");
+				//Thread.sleep(5000);
+				
+				//driver.findElement(By.xpath("//body/div[@id='__next']/section/div/div/div/div/div/div/div/div/section/div/div[2]/div[1]/div[1]")).getText().compareTo("Hi this is may first Comment Added");
+				
+				
+				//body/div[@id='__next']/section/div/div/div/div/div/div/div/div/section/div/div[2]/div[1]/div[1]
+		/*
+		 * String TestData = driver.findElement(By.xpath(
+		 * "/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/section[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[2]/p[1]/span[2]"
+		 * )).getText(); Helper.highLightElement(driver, TestData);
+		 * driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS); String
+		 * expectedData = " Hi this is may first Comment Added";
+		 * driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+		 * 
+		 * if(expectedData.equals(TestData)){ System.out.println("Result is Matched");
+		 * Helper.highLightElement(driver, TestData); } else {
+		 * System.out.println("Result is Not matched"); }
+		 */
 		
 		//check this
 		
@@ -151,12 +205,14 @@ public class VerifyTitle {
 		
 		
 		
-		//select the first post
-		//driver.findElement(By.xpath("/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/a[1]/img[1]")).click();
-
 		
 		
-		System.out.println(driver.getTitle());
+		////body//section//section//div//div//div//div//span[2]
+		
+		
+		
+		
+		//System.out.println(driver.getTitle());
 		//driver.quit();
 	}
 
