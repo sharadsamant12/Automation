@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
-//import org.openqa.selenium.Keys;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -90,7 +90,7 @@ public class VerifyTitle {
 		Helper.highLightElement(driver, Textarea);
 		driver.manage().timeouts().implicitlyWait(2500, TimeUnit.SECONDS);
 		driver.findElement(By.xpath("//div[@class='input-group active']//span[contains(text(),'Send')]")).click();
-		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(2500, TimeUnit.SECONDS);
 		
 		//Refresh the page
 				driver.findElement(By.xpath("//body/div[@id='__next']/header/div/nav/div/img[1]")).click();
@@ -109,7 +109,38 @@ public class VerifyTitle {
 		{
 			System.out.println("Text not Presnet");
 		}
+	
 		
+		
+		
+		// Window handle
+		String parent = driver.getWindowHandle();
+		
+		//select the first post
+				driver.findElement(By.xpath("//body//div[@id='__next']//div//div//div//div//div//div//div//div//div//div//div[1]//div[1]//div[1]//div[1]//div[1]//div[1]//a[1]//div[1]//h5[1]")).click();
+				driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);  
+				
+			// Open Different Windows tab and comeback on Parent window.	
+				Set<String> allWindows=driver.getWindowHandles();
+				int count=allWindows.size();
+				System.out.println("Total No. of Windows" + count);
+				for(String child:allWindows)
+					{
+						if(!parent.equalsIgnoreCase(child))
+						{
+							driver.switchTo().window(child);
+							String TestData= driver.findElement(By.xpath("//body//div[@id='__next']//div//div//div//div//div//div//div//div//div//div//div//div[1]//div[1]//div[1]//div[2]//p[1]//span[2]")).getText();
+							Thread.sleep(3000);
+							System.out.println("Added data is Text is :" + TestData);
+							//driver.findElement(By.xpath("//body/div[@id='__next']/section/div/div/div/div/div/div/div/div/section/div/div[2]/div[1]/div[1]")).sendKeys(Keys.CONTROL + "a");
+							//Thread.sleep(3000);
+							driver.close();
+						}
+					}
+				
+				driver.switchTo().window(parent);
+				
+
 		
 		
 		
@@ -139,54 +170,32 @@ public class VerifyTitle {
 		 * System.out.println("Rsult is Not matched"); }
 		 */
 		
-		// Window handle
-		String parent = driver.getWindowHandle();
-		
-		//select the first post
-				driver.findElement(By.xpath("//body//div[@id='__next']//div//div//div//div//div//div//div//div//div//div//div[1]//div[1]//div[1]//div[1]//div[1]//div[1]//a[1]//div[1]//h5[1]")).click();
-				driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);  
+					
+		//Page Scrolling
+				JavascriptExecutor jse=(JavascriptExecutor)driver;
 				
-				Set<String> allWindows=driver.getWindowHandles();
-				int count=allWindows.size();
-				System.out.println("Total No. of Windows" + count);
-				for(String child:allWindows)
-					{
-						if(!parent.equalsIgnoreCase(child))
-						{
-							driver.switchTo().window(child);
-							driver.findElement(By.xpath("//body/div[@id='__next']/section/div/div/div/div/div/div/div/div/section/div/div[2]/div[1]/div[1]")).getText().compareTo("Hi this is may first Comment Added");
-							Thread.sleep(3000);
-							driver.close();
-						}
-					}
-				
-				driver.switchTo().window(parent);
-				                            		 
-				//driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL + "t");
-				//driver.manage().timeouts().implicitlyWait(1500, TimeUnit.SECONDS);
-				
-				//driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL + "\t");
-				//Thread.sleep(5000);
-				
-				//driver.findElement(By.xpath("//body/div[@id='__next']/section/div/div/div/div/div/div/div/div/section/div/div[2]/div[1]/div[1]")).getText().compareTo("Hi this is may first Comment Added");
+			//Scroll page in between
+				//jse.executeScript("window.scrollTo(0, 1500)");
+				//Thread.sleep(3000);
 				
 				
-				//body/div[@id='__next']/section/div/div/div/div/div/div/div/div/section/div/div[2]/div[1]/div[1]
-		/*
-		 * String TestData = driver.findElement(By.xpath(
-		 * "/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/section[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[2]/p[1]/span[2]"
-		 * )).getText(); Helper.highLightElement(driver, TestData);
-		 * driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS); String
-		 * expectedData = " Hi this is may first Comment Added";
-		 * driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
-		 * 
-		 * if(expectedData.equals(TestData)){ System.out.println("Result is Matched");
-		 * Helper.highLightElement(driver, TestData); } else {
-		 * System.out.println("Result is Not matched"); }
-		 */
-		
-		//check this
-		
+			//Page scroll till the specific Post				
+				
+				WebElement NewPost = driver.findElement(By.xpath("//div[7]//div[1]//div[1]//div[1]//div[1]//div[1]//a[1]//div[1]//h5[1]"));
+				jse.executeScript("arguments[0].scrollIntoView(true)", NewPost);
+				Thread.sleep(3000);
+				driver.findElement(By.xpath("//div[7]//div[3]//div[2]//div[1]//div[2]//div[1]//div[1]//textarea[1]")).sendKeys("Hi, New Comment Added on another post");
+				//Helper.highLightElement(driver, Textarea);
+				driver.manage().timeouts().implicitlyWait(2500, TimeUnit.SECONDS);
+				driver.findElement(By.xpath("//div[7]//div[3]//div[2]//div[1]//div[2]//div[1]//div[1]//div[1]//div[1]")).click();
+				
+			
+		//Open Specific Post
+				driver.findElement(By.xpath("//div[7]//div[1]//div[1]//div[2]//div[2]//div[1]//div[1]//div[2]")).click();
+				driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+				driver.findElement(By.xpath("//div[@class='icon-delete']//img")).click();
+				//driver.findElement((By.xpath("//button[contains(text(),'Yes')]"))
+				
 		 //Action act = new Action(myachualData);
 		 //act.equals(driver.findElement(By.xpath("//*[content(text(),'Hi this is may first Comment Added')]")).isDisplayed();
 		 
