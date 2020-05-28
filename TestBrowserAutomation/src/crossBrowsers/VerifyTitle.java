@@ -10,7 +10,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -144,33 +146,8 @@ public class VerifyTitle {
 		
 		
 		
-		//String achualData = driver.findElement(By.xpath("//body//div[@id='__next']//div//div//div//div//div//div//div//div//div//div//div[1]//div[3]//div[1]//div[1]//div[1]//div[1]//div[2]//p[1]//span[2]")).getText();
-		
-		/*
-		 * String achualData = driver.findElement(By.
-		 * cssSelector("section.page-section.clearfix div.block-section.welcome-section.clearfix div.container div.row div.col-sm-12.col-md-6:nth-child(2) div.mid_content div.mid_container div.post-content div.infinite-scroll-component__outerdiv div.infinite-scroll-component div.comment-list:nth-child(3) div.profile-comment-list div.commentlist-wrapper:nth-child(1) div.comment-lt div.commentlist-container div.post-text p:nth-child(1) > span.text-dec"
-		 * )).getText(); Helper.highLightElement(driver, achualData);
-		 * System.out.println("Data: " + achualData); Helper.highLightElement(driver,
-		 * achualData); driver.manage().timeouts().implicitlyWait(2500,
-		 * TimeUnit.SECONDS);
-		 */
-	   
 		
 
-		
-		//System.out.println("Result for added data : " + achualData);
-		//driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
-		
-		/*
-		 * String expectedData = " Hi this is may first Comment Added";
-		 * driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
-		 * 
-		 * if(expectedData.equalsIgnoreCase(achualData)){
-		 * System.out.println("Result is Matched"); } else {
-		 * System.out.println("Rsult is Not matched"); }
-		 */
-		
-					
 		//Page Scrolling
 				JavascriptExecutor jse=(JavascriptExecutor)driver;
 				
@@ -181,43 +158,61 @@ public class VerifyTitle {
 				
 			//Page scroll till the specific Post				
 				
-				WebElement NewPost = driver.findElement(By.xpath("//div[7]//div[1]//div[1]//div[1]//div[1]//div[1]//a[1]//div[1]//h5[1]"));
-				jse.executeScript("arguments[0].scrollIntoView(true)", NewPost);
+				WebElement Scrolldown = driver.findElement(By.xpath("//div[7]//div[1]//div[1]//div[1]//div[1]//div[1]//a[1]//div[1]//h5[1]"));
+				jse.executeScript("arguments[0].scrollIntoView(true);", Scrolldown);
+				Thread.sleep(5000);
+				
+				
+				WebElement NewPost = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[8]/div[1]/div[1]/div[1]/div[1]/div[1]/a[1]/div[1]/h5[1]"));
+				jse.executeScript("arguments[0].scrollIntoView(true);", NewPost);
 				Thread.sleep(3000);
-				driver.findElement(By.xpath("//div[7]//div[3]//div[2]//div[1]//div[2]//div[1]//div[1]//textarea[1]")).sendKeys("Hi, New Comment Added on another post");
-				//Helper.highLightElement(driver, Textarea);
-				driver.manage().timeouts().implicitlyWait(2500, TimeUnit.SECONDS);
-				driver.findElement(By.xpath("//div[7]//div[3]//div[2]//div[1]//div[2]//div[1]//div[1]//div[1]//div[1]")).click();
+				driver.findElement(By.xpath("//div[8]//div[3]//div[2]//div[1]//div[2]//div[1]//div[1]//textarea[1]")).sendKeys("Hi, New Comment Added on another post");
+				////Helper.highLightElement(driver, Textarea);
+				Thread.sleep(5000);
+				driver.findElement(By.xpath("//div[8]//div[3]//div[2]//div[1]//div[2]//div[1]//div[1]//div[1]//div[1]")).click();
 				
 			
 		//Open Specific Post
-				driver.findElement(By.xpath("//div[7]//div[1]//div[1]//div[2]//div[2]//div[1]//div[1]//div[2]")).click();
+				driver.findElement(By.xpath("//div[8]//div[1]//div[1]//div[2]//div[2]//div[1]//div[1]//div[2]//div[1]//a[1]//img[1]")).click();
 				driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
-				driver.findElement(By.xpath("//div[@class='icon-delete']//img")).click();
-				//driver.findElement((By.xpath("//button[contains(text(),'Yes')]"))
+				Thread.sleep(3000);
+				////driver.findElement(By.xpath("//div[@class='icon-delete']//img")).click();
 				
-		 //Action act = new Action(myachualData);
-		 //act.equals(driver.findElement(By.xpath("//*[content(text(),'Hi this is may first Comment Added')]")).isDisplayed();
-		 
-
+				
+				Set<String> allWindows1=driver.getWindowHandles();
 		
-		
-		/*
-		 * try { WebElement eElement = driver.findElement(By.xpath(
-		 * "//body//div[@id='__next']//div//div//div//div//div//div//div//div//div//div//div[1]//div[3]//div[1]//div[1]//div[1]//div[1]//div[2]//p[1]//span[2]"
-		 * )); eElement.sendKeys(""); }catch(Exception e) {
-		 * System.out.println("No Element found"); }
-		 */
-		
-		
-		//driver.findElement(By.xpath("//body//div[@id='__next']//div//div//div//div//div//div//div//div//div//div//div[1]//div[3]//div[1]//div[1]//div[1]//div[1]//div[2]//p[1]//span[2]"));
-		
-		
-		
-		
-		
-		////body//section//section//div//div//div//div//span[2]
-		
+				for(String child:allWindows1)
+					{
+						if(!parent.equalsIgnoreCase(child))
+						{
+							driver.switchTo().window(child);
+														
+							Actions act = new Actions(driver);
+							//act.moveToElement(driver.findElement(By.xpath("//body/div[@id='__next']/section/div/div/div/div/div/div/div/div/section/div/div[2]/div[1]"))).perform();
+							//act.moveToElement(driver.findElement(By.cssSelector("section.page-section.clearfix div.block-section.welcome-section.clearfix div.container div.row div.col-12 div.mid_content div.postdetail div.row.no-gutters div.col-md-4 section.post-container-commentbox div.day-right-content div:nth-child(2) div.profile-comment-list > div.commentlist-wrapper:nth-child(1)"))).perform();
+							act.moveToElement(driver.findElement(By.xpath("//div[@id='__next']//section//div//div//div//div//div//div//div//div//section//div//div//div//div//div//div//div//p"))).perform();
+							
+							Thread.sleep(1500);
+							new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.cssSelector("section.page-section.clearfix div.block-section.welcome-section.clearfix div.container div.row div.col-12 div.mid_content div.postdetail div.row.no-gutters div.col-md-4 section.post-container-commentbox div.day-right-content div:nth-child(2) div.profile-comment-list div.commentlist-wrapper:nth-child(1) > div.icon-delete"))).click();
+							//new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='icon-delete']"))).click();
+							//driver.findElement(By.xpath("//body/div[@id='__next']/section/div/div/div/div/div/div/div/div/section/div/div[2]/div[1]/div[1]/div[2]")).click();
+							//driver.findElement(By.xpath("//div[@class='icon-delete']")).click();
+							//Thread.sleep(5000);
+							
+							driver.findElement(By.xpath("//button[contains(text(),'Yes')]")).click();
+							Thread.sleep(3000);
+							
+							
+							driver.close();
+						}
+					}
+				
+				driver.switchTo().window(parent);
+				
+				
+				
+	
+				
 		
 		
 		

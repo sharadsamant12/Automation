@@ -11,4 +11,14 @@
       </class> <!-- crossBrowsers.VerifyTitle -->
     </classes>
   </test> <!-- FirefoxTestCases(failed) -->
+  <test thread-count="5" name="ChromeTestCases(failed)">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="crossBrowsers.VerifyTitle">
+        <methods>
+          <include name="verifypageTitle" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- crossBrowsers.VerifyTitle -->
+    </classes>
+  </test> <!-- ChromeTestCases(failed) -->
 </suite> <!-- Failed suite [Suite] -->
