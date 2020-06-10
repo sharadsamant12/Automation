@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
 
 public class VerifyTitle {
 	
-	WebDriver driver;
+	public static WebDriver driver;
 	
 	
 	@Test
@@ -33,8 +33,9 @@ public class VerifyTitle {
 		
 		
 		if(browserName.equalsIgnoreCase("firefox")) {
-			//System.setProperty("webdriver.Firefox.drive ", "D:\\eclipse\\New folder\\geckodriver.exe");
+			System.setProperty("webdriver.gecko.drive", "D://eclipse//New folder//geckodriver.exe");
 			driver =new FirefoxDriver();
+			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		}
 		
 		else if(browserName.equalsIgnoreCase("chrome"))
@@ -51,16 +52,17 @@ public class VerifyTitle {
 		}
 		
 		  driver.manage().window().maximize();
-		  driver.manage().timeouts().implicitlyWait(50000, TimeUnit.SECONDS);
+		  driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
 		  
 		  
 		 
 		//Thread.sleep(50000);
-		  //driver.get("https://webuser:w3bus3r@stage2.dayre.me/auth/login");
-		driver.get("http://webuser:w3bus3r@webapp-stage.dayre.me/auth/login");
-				
-		driver.get("http://webapp-stage.dayre.me/auth/login");
-		Thread.sleep(1000);
+		  driver.get("https://webuser:w3bus3r@stage2.dayre.me/auth/login");
+		  
+		  driver.get("http://stage2.dayre.me/auth/login");
+		  //driver.get("http://webuser:w3bus3r@webapp-stage.dayre.me/auth/login");
+		  //driver.get("http://webapp-stage.dayre.me/auth/login");
+		//Thread.sleep(50000);
 		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
 		
 		
@@ -68,9 +70,11 @@ public class VerifyTitle {
 		
 		
 		  //Font size  
-		  //String expected1 = "51px";
+		  String expected1 = "51px";
 		  String fsize = driver.findElement(By.xpath("//h1[contains(text(),'Welcome home')]")).getCssValue("font-size"); 
 		  System.out.println("Font size: " +fsize);
+		  String actual1 = fsize;
+		  Assert.assertEquals(actual1, expected1);
 		  
 		  //Font Type
 		  String fontfamily = driver.findElement(By.xpath("//h1[contains(text(),'Welcome home')]")).getCssValue("font-family");
@@ -92,25 +96,28 @@ public class VerifyTitle {
 		 
 		
 		
-		//Login and Password
+		//LOGIN AND PASSWORD
 		driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/form[1]/div[1]/input[1]")).sendKeys("sharad");
 									
-		driver.manage().timeouts().implicitlyWait(10000, TimeUnit.SECONDS);
-		//Thread.sleep(10000);
+		driver.manage().timeouts().implicitlyWait(200, TimeUnit.SECONDS);
+		Thread.sleep(1000);
 		//driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/form[1]/div[2]/input[1]")).sendKeys("43214321");
 		
-		WebDriverWait wait = new WebDriverWait(driver,30);
+		WebDriverWait wait = new WebDriverWait(driver,300);
 
 		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/form[1]/div[2]/input[1]")));
 		element.sendKeys("43214321");	
 		
 		
-		//driver.findElement(By.xpath("//input[@name='login_p']")).sendKeys("43214321");
-		driver.manage().timeouts().implicitlyWait(10000, TimeUnit.SECONDS);
-		//Thread.sleep(10000);
+		//driver.manage().timeouts().implicitlyWait(100000, TimeUnit.SECONDS);
+		Thread.sleep(100);
 		
-		driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/form[1]/div[4]/button[1]")).click();
-		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+		WebDriverWait wait1 = new WebDriverWait(driver,30);
+		WebElement element1 = wait1.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/form[1]/div[4]/button[1]")));
+		element1.click();
+		
+		//driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/form[1]/div[4]/button[1]")).click();
+		//driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
 		
 		
 		//Add Test Post
@@ -217,25 +224,46 @@ public class VerifyTitle {
 				
 			//Page scroll till the specific Post				
 				
-				WebElement Scrolldown = driver.findElement(By.xpath("//div[7]//div[1]//div[1]//div[1]//div[1]//div[1]//a[1]//div[1]//h5[1]"));
+				//WebElement Scrolldown = driver.findElement(By.xpath("//div[7]//div[1]//div[1]//div[1]//div[1]//div[1]//a[1]//div[1]//h5[1]"));
+				WebElement Scrolldown = driver.findElement(By.xpath("//div[7]//div[3]//div[2]//div[1]//div[2]//div[1]//div[1]//textarea[1]"));
 				jse.executeScript("arguments[0].scrollIntoView(true);", Scrolldown);
-				Thread.sleep(5000);
+				driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+				Thread.sleep(7000);
 				
 				
-				WebElement NewPost = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[8]/div[1]/div[1]/div[1]/div[1]/div[1]/a[1]/div[1]/h5[1]"));
+				//WebElement NewPost = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[8]/div[1]/div[1]/div[1]/div[1]/div[1]/a[1]/div[1]/h5[1]"));
+				WebElement NewPost = driver.findElement(By.xpath("html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[7]/div[3]/div[2]/div[1]/div[2]/div[1]/div[1]/textarea[1]"));
+		
 				jse.executeScript("arguments[0].scrollIntoView(true);", NewPost);
 				Thread.sleep(3000);
-				driver.findElement(By.xpath("//div[8]//div[3]//div[2]//div[1]//div[2]//div[1]//div[1]//textarea[1]")).sendKeys("Hi, New Comment Added on another post");
-				////Helper.highLightElement(driver, Textarea);
-				Thread.sleep(5000);
-				driver.findElement(By.xpath("//div[8]//div[3]//div[2]//div[1]//div[2]//div[1]//div[1]//div[1]//div[1]")).click();
+				driver.manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
 				
+				//driver.findElement(By.xpath("//div[8]//div[3]//div[2]//div[1]//div[2]//div[1]//div[1]//textarea[1]")).sendKeys("Hi, New Comment Added on another post");
+				driver.findElement(By.xpath("/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[8]/div[3]/div[2]/div[1]/div[2]/div[1]/div[1]/textarea[1]")).sendKeys("Hi, Add comment by system. @vinayak check this comment. :)");
+				////Helper.highLightElement(driver, Textarea);
+				driver.manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+				Thread.sleep(3000);
+				driver.findElement(By.xpath("//div[8]//div[3]//div[2]//div[1]//div[2]//div[1]//div[1]//div[1]//div[1]")).click();
+				Thread.sleep(2000);
+				driver.manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
 			
 		//Open Specific Post
+				
 				driver.findElement(By.xpath("//div[8]//div[1]//div[1]//div[2]//div[2]//div[1]//div[1]//div[2]//div[1]//a[1]//img[1]")).click();
 				driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
-				Thread.sleep(3000);
 				
+				driver.findElement(By.xpath("/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[8]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/div[1]/a[1]/img[1]")).click();
+				
+				//STAGE
+				//driver.findElement(By.xpath("/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[8]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]")).click();
+				driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+				Thread.sleep(5000);
+				
+				
+				//STAGE2
+				//WebDriverWait wait2 = new WebDriverWait(driver,3000);
+				//WebElement element2 = wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html[1]/body[1]/div[1]/section[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[8]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]")));
+				//element2.click();
 				
 				
 				Set<String> allWindows1=driver.getWindowHandles();
