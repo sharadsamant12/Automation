@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="FirefoxTestCases(failed)">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="crossBrowsers.VerifyTitle">
+        <methods>
+          <include name="setupApplication"/>
+          <include name="verifypageTitle3"/>
+          <include name="closeApplication"/>
+          <include name="verifypageTitle2"/>
+        </methods>
+      </class> <!-- crossBrowsers.VerifyTitle -->
+    </classes>
+  </test> <!-- FirefoxTestCases(failed) -->
   <test thread-count="5" name="ChromeTestCases(failed)">
     <parameter name="browser" value="chrome"/>
     <classes>
       <class name="crossBrowsers.VerifyTitle">
         <methods>
-          <include name="verifypageTitle" invocation-numbers="0"/>
+          <include name="setupApplication"/>
+          <include name="verifypageTitle3"/>
+          <include name="closeApplication"/>
+          <include name="verifypageTitle2"/>
         </methods>
       </class> <!-- crossBrowsers.VerifyTitle -->
     </classes>
