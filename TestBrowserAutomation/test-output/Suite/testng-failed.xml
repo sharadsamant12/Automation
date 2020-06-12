@@ -10,6 +10,7 @@
           <include name="verifypageTitle3"/>
           <include name="closeApplication"/>
           <include name="verifypageTitle2"/>
+          <include name="verifypageTitle4"/>
         </methods>
       </class> <!-- crossBrowsers.VerifyTitle -->
     </classes>

@@ -54,7 +54,7 @@ public static WebDriver driver;
 		  driver.get("http://stage2.dayre.me/auth/login");
 		  //driver.get("http://webuser:w3bus3r@webapp-stage.dayre.me/auth/login");
 		  //driver.get("http://webapp-stage.dayre.me/auth/login");
-		//Thread.sleep(50000);
+		Thread.sleep(500);
 		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
 		
 		
